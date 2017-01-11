@@ -1,0 +1,20 @@
+{% extends "base_django_tables2.html" %}
+
+{% block content %}
+<h1>Trip Commitments</h1>
+
+<!--
+<ul>
+   {% for trip_commitment in object_list %}
+    <li class="contact">{{ trip_commitment }}
+      (<a href="{% url "trip_commitment-edit" pk=trip_commitment.id %}">edit</a>)
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="{% url "trip_commitment-new" %}">Add Trip Commitment</a>
+-->
+{% load django_tables2 %}
+{% render_table table %}
+
+{% endblock %}

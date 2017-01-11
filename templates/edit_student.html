@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if object_list.id %}
+    <h3>Edit Payment</h3>
+{% else %}
+    <h3>Add Payment</h3>
+{% endif %}
+{% load i18n %}
+<form action="{{ action }}" method="POST">
+{% csrf_token %}
+     <h2>Student Information:</h2>
+     <!-- Make use of Django's automatic form templating -->
+  <ul>
+     {{ form.as_p }}
+  </ul>
+
+     <!-- Now add the sub-form to this form -->
+     <p><button type="submit">Update Student</button></p>
+ </form>
+{% endblock %}

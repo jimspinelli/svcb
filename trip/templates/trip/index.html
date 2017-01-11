@@ -1,0 +1,13 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'trip/style.css' %}" />
+
+{% if trip_commitment_list %}
+    <ul>
+    {% for student in trip_commitment_list %}
+        <li><a href="{% url 'trip:detail' student.id %}">{{ student.last_name }}, {{ student.first_name }}</a>, {{ student.student_grade }} </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No students are available.</p>
+{% endif %}

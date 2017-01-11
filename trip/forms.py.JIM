@@ -1,0 +1,26 @@
+from django import forms
+
+from .models import Trip_Commitment,Trip
+
+class ContactForm(forms.Form):
+    class Meta:
+        model=Trip
+        fields='__all__'
+#    name = forms.CharField()
+#    message = forms.CharField(widget=forms.Textarea)
+#    def send_email(self):
+#        pass
+    
+class Trip_CommitmentForm(forms.ModelForm):
+    class Meta:
+        model=Trip_Commitment
+        fields=('first_name',
+                'last_name',
+                'student_grade',
+                'period',
+                'going_on_trip',
+                'purchase_insurance',
+                'email',
+                'phone_1',
+                'phone_2',
+                'trip')

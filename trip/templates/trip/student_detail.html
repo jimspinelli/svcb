@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.name }}{% endblock title %}
+
+{% block base_content %}
+
+<ul class="breadcrumb">
+  <li><a href="{% url 'student_list' %}">Student</a> <span class="divider">/</span></li>
+  <li class="active">{{ object.name }}</li>
+</ul>
+
+<div class="page-header">
+    <a class="btn btn-primary pull-right" href="{% url 'edit_student_and_tripcommitment' object.pk %}"><i class="icon-edit icon-white"></i> Edit Student and Trip Commitment</a>
+    <h1>{{ object.name }}</h1>
+</div>
+
+<h2>Student</h2>
+
+<ul>
+    {% for student in object.student_set.all %}
+    <li><a href="{{ student.get_absolute_url }}">{{ student.first_name }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock base_content %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Books{% endblock title %}
+
+{% block base_content %}
+
+<div class="page-header">
+    <a class="btn btn-primary pull-right" href="{% url 'add_author_and_books' %}"><i class="icon-plus icon-white"></i> Add Author and Books</a>
+    <h1>Book List</h1>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th>Book</th>
+        <th>Author</th>
+    </tr>
+    {% for object in object_list %}
+    <tr>
+        <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
+        <td><a href="{{ object.author.get_absolute_url }}">{{ object.author }}</a></td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock base_content %}

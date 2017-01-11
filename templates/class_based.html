@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h3>Trip Commitment Dashboard</h3>
+{% load humanize %}
+<pre>
+{% for tr in trip %}
+<b>Trip: {{ tr.description }}     Trip Cost: ${{ tr.trip_cost|floatformat:2|intcomma }}       Insurance Cost: ${{ tr.insurance_cost|floatformat:2|intcomma }} </b>
+{% endfor %}
+{% for cpd in current_payment_date %}
+<b>Current Payment Due Date: {{ cpd.current_payment_date }}     Current Amount Due: ${{ cpd.current_amount_due }} </b>
+{% endfor %}
+
+</pre>
+<!--
+<pre>
+{{ "{%" }} load django_tables2 {{ "%}" }}
+{{ "{%" }} render_table example {{ "%}" }}
+</pre>
+-->
+
+{% load django_tables2 %}
+{% render_table table %}
+
+{% endblock %}

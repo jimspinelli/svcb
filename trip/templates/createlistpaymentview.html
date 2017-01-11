@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Payments Recorded for: {{ student_name }} </h3>
+
+{% if object_list.id %}
+    <h3>Edit Payment</h3>
+{% else %}
+    <h3>Add Payment {{ form.student_name }}  </h3>
+{% endif %}
+{% load i18n %}
+
+<form action="{{ action }}" method="POST">
+  {% csrf_token %}
+  <ul>
+    {{ form.as_p }}
+  </ul>
+  <input id="save_payment" type="submit" value="Save" />
+</form>
+<a href="{% url "trip_commitment-list" %}"> Back to Dashboard</a>
+
+
+<table id="paymentset" class=form">
+
+<table border="1">
+    <tr>
+    <th>Payment Amount</th>
+    <th>Payment Date</th>
+    <th>Check Number</th>
+    <th>Deposit Date</th>
+    <th></th>
+    </tr>
+    {% for payment in object_list %}
+      <tr>
+        <td>{{ payment.payment_amount }}</td>
+        <td>{{ payment.payment_date }}</td>
+        <td>{{ payment.check_number }}</td>
+        {% if payment.deposit_date == None %}
+            <td></td>
+        {% else %}
+            <td>{{ payment.deposit_date }}</td>
+        {% endif %}
+        <td>(<a href="{% url "payment-edit" pk=payment.id %}">edit</a>)</td>
+      </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

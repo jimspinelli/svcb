@@ -1,0 +1,22 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% if trip_commitment.id %}
+    <h3>Edit Trip Commitment</h3>
+{% else %}
+    <h3>Add Trip Commitment</h3>
+{% endif %}
+
+<form action="{{ action }}" method="POST">
+  {% csrf_token %}
+  <ul>
+    {{ bootstrap_form form.as_p }}
+  </ul>
+  <input id="save_trip_commitment" type="submit" value="Save" />
+</form>
+
+<a href="{% url "trip_commitment-list" %}">back to list</a>

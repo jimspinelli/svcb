@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}
+    <h3>
+        {% if form.instance.pk %}
+            Edit
+        {% else %}
+            Add
+        {% endif %} Student Information
+    </h3>
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+    <form role="form" class="form-inline" method="post">
+        {% csrf_token %}
+
+        <div class="tripcommitment">
+            {{ form.as_p }}
+            {{ form.management_form }}
+        </div>
+
+        <div class="tripcommitments form-inline">
+            {% for form in formset %}
+                {{ form.as_p }}
+                {{ form.management_form }}
+            {% endfor %}
+        </div>
+        <div class="form-actions">
+           <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div> <!-- /container -->
+
+    </form>
+
+    <a href="{% url "trip_commitment-list" %}"> Back to Dashboard</a>
+{% endblock %}
+
+

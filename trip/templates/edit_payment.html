@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if object_list.id %}
+    <h3>Edit Payment</h3>
+{% else %}
+    <h3>Add Payment</h3>
+{% endif %}
+{% load i18n %}
+
+<form action="{{ action }}" method="POST">
+  {% csrf_token %}
+  <ul>
+    {{ form.as_p }}
+  </ul>
+  <input id="save_payment" type="submit" value="Save" />
+</form>
+<a href="{% url "trip_commitment-list" %}">back to list</a>
+{% endblock %}

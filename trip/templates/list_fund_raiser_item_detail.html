@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Fund Raiser Detail for: {{ student_name }}</h3>
+
+<table id="fundraiseritemdetal" class=form">
+
+<table border="1">
+    <tr>
+    <th>Item</th>
+    <th>Quantity Sold</th>
+    <th>Cost</th>
+    <th>Sub Total</th>
+    <th>Profit</th>
+    <th>Profit Total</th>
+
+    {% for fr in object_list %}
+      <tr>
+        <td>{{ fr.item_description }}</td>
+        <td>{{ fr.quantity_sold }}</td>
+        <td>${{ fr.cost }}</td>
+        <td>${{ fr.sub_total }}</td>
+        {% if fr.profit_percentage %}
+            <td>{{ fr.profit_percentage }}%</td>
+        {% else %}
+            <td>${{ fr.profit }}</td>
+        {% endif %}
+        <td>${{ fr.profit_total }}</td>
+      </tr>
+  {% endfor %}
+</table>
+
+<a href="{% url "list_student_fund_raiser" id=view.kwargs.tcid %}">Back to Fund Raisers Recorded</a>
+<a href="{% url "trip_commitment-list" %}">Back to Dashboard</a>
+
+{% endblock %}

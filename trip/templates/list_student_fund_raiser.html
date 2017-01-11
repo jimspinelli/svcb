@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Fund Raisers Recorded for: {{ student_name }} {{ stdnt.last_name }} </h3>
+
+<table id="paymentset" class=form">
+
+<table border="1">
+    <tr>
+    <th>Fund Raiser</th>
+    <th>Profit</th>
+    <th></th>
+    </tr>
+    {% for fr in object_list %}
+      <tr>
+        <td>{{ fr.fund_raiser_description }}</td>
+        <td>${{ fr.total_profit }}</td>
+        {% if fr.fund_raiser_type == 'Single' %}
+            <td>(<a href="{% url "fund_raiser_detail" frid=fr.fund_raiser_id tcid=fr.trip_commitment_id %}">detail</a>)</td>
+        {% elif fr.fund_raiser_type == 'Item' %}
+            <td>(<a href="{% url "fund_raiser_item_detail" frid=fr.fund_raiser_id tcid=fr.trip_commitment_id %}">detail</a>)</td>
+        {% endif %}
+      </tr>
+  {% endfor %}
+</table>
+
+<a href="{% url "trip_commitment-list" %}">Back to Dashboard</a>
+
+{% endblock %}

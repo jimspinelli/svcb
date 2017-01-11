@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+
+        </head>
+        <body>
+        <form action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="update" />
+    </form>
+        </body>
+    </html>
+<!--
+
+{% extends 'trip/base.html' %}
+{% block content %}
+    <div class="student">
+        <a class="btn-default" href="{% url 'student_edit' id=student.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        <h1>Student Information</h1>
+        <p>{{ student.first_name }}</p>
+        <p>{{ student.last_name }}</p>
+    </div>
+{% endblock %}
+-->

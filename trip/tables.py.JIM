@@ -1,0 +1,76 @@
+# coding: utf-8
+import django_tables2 as tables
+
+from .models import Trip_Commitment_Dashboard
+
+class CurrencyColumn(tables.Column):
+    def render(self,value):
+        return "$%.2f" % float(value)
+
+class AccountUpToDateColumn(tables.Column):
+    def render(self, value, record):
+        if record.account_up_to_date == 'LOW':
+            self.attrs ={"td": {"bgcolor":"Violet"}}
+        return u"%s" % (record.account_up_to_date)
+                        
+class Trip_CommitmentTable(tables.Table):
+    full_name = tables.Column()
+    #trip_id = tables.Column()
+    student_grade = tables.Column(verbose_name='Grade')
+    going_on_trip = tables.Column(verbose_name='Going on Trip?')
+    purchase_insurance = tables.BooleanColumn(verbose_name="Purchase Insurance?")
+    #period=tables.Column(verbose_name='Period')
+    #email = tables.Column()
+    #phone_1 = tables.Column()
+    #phone_2 = tables.Column()
+    #trip_description=tables.Column(verbose_name='Trip')
+    #trip_cost=tables.Column(verbose_name='Trip Cost')
+    #trip_cost=CurrencyColumn()
+    #insurance_cost=CurrencyColumn()
+    total_payment=CurrencyColumn(verbose_name='Total Payments')
+    total_fund_raiser_profit=CurrencyColumn(verbose_name='Total Fund Raisers')
+    current_amount_due=CurrencyColumn(verbose_name='Current Amount Due')
+    #current_payment_date=tables.DateColumn(verbose_name='Current Payment Date')
+    #current_payment_due=CurrencyColumn(verbose_name='Current Payment Due')
+    trip_balance=CurrencyColumn(verbose_name='Trip Balance')
+    account_up_to_date=AccountUpToDateColumn(verbose_name='Account Up To Date?')
+    class Meta:
+        model = Trip_Commitment_Dashboard
+        # This attribute identifies fields to display
+        fields = ('full_name',
+                  'student_grade',
+                  #'period',
+                  'going_on_trip',
+                  'purchase_insurance',
+                  #'trip_description',
+                  #'trip_cost',
+                  #'insurance_cost',
+                  'total_payment',
+                  'total_fund_raiser_profit',
+                  #'current_amount_due',
+                  #'current_payment_date',
+                  'trip_balance',
+                  'account_up_to_date')
+        # This attribute identifies the order in which to display fields
+        sequence = ('full_name',
+                  'student_grade',
+                  #'current_amount_due',
+                  'trip_balance',
+                  'current_payment_due',
+                  'total_payment',
+                  'total_fund_raiser_profit',
+                  'account_up_to_date',
+                  #'period',
+                  'going_on_trip',
+                  'purchase_insurance',
+                  #'trip_description',
+                  #'trip_cost',
+                  #'insurance_cost',
+                  #'current_payment_date'
+                   )
+    
+        
+class ThemedTrip_CommitmentTable(Trip_CommitmentTable):
+    class Meta:
+        attrs = {'class': 'paleblue'}
+    

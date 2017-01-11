@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+
+{% block title %}{% if form.instance.pk %}Edit{% else %}Add{% endif %} Student and Trip Commitment{% endblock title %}
+
+{% block link %}{{ block.super }}
+    <style type="text/css">
+    .errorlist {
+        list-style: none;
+        color: #B94A48;
+        margin: 0px 0px 9px 0px;
+        padding: 0px;
+    }
+    </style>
+{% endblock link %}
+
+{% block bottom_script %}{{ block.super }}
+    <script type="text/html" id="student-template">
+    <div id="student-__prefix__">
+        {{ formset.empty_form }}
+    </div>
+    </script>
+    <script>
+    $(function() {
+        $('.add-student').click(function(ev){
+            ev.preventDefault();
+            var count = parseInt($('#id_student_set-TOTAL_FORMS').attr('value'), 10);
+            var tmplMarkup = $('#student-template').html();
+            var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count)
+            console.log(compiledTmpl);
+            $('div.students').append(compiledTmpl);
+            $('#id_student_set-TOTAL_FORMS').attr('value', count + 1);
+        });
+    });
+    </script>
+{% endblock bottom_script %}
+
+
+{% block base_content %}
+
+<form action="." method="post">
+    {{ formset.management_form }}
+    {% csrf_token %}
+
+    <legend><h3>Student</h3></legend>
+    <div class="tripcommitment">
+    {{ form.as_p }}
+    </div>
+
+    <div class="tripcommitments form-inline">
+        {% for form in formset %}
+            {{ form.as_p }}
+        {% endfor %}
+    </div>
+  <div class="form-actions">
+     <button type="submit" class="btn btn-primary">Save</button>
+   </div>
+ </form>
+
+{% endblock base_content %}
+

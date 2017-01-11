@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for stdnt in student_name %}
+<h3>{{ stdnt.first_name }} {{ stdnt.last_name }} Payments Recorded</h3>
+{% endfor %}
+
+<table id="paymentset" class=form">
+
+<table border="1">
+    <tr>
+    <th>Payment Amount</th>
+    <th>Payment Date</th>
+    <th>Check Number</th>
+    <th>Deposit Date</th>
+    <th></th>
+    </tr>
+    {% for payment in object_list %}
+      <tr>
+        <td>{{ payment.payment_amount }}</td>
+        <td>{{ payment.payment_date }}</td>
+        <td>{{ payment.check_number }}</td>
+        {% if payment.deposit_date == None %}
+            <td></td>
+        {% else %}
+            <td>{{ payment.deposit_date }}</td>
+        {% endif %}
+        <td>(<a href="{% url "payment-edit" pk=payment.id %}">edit</a>)</td>
+      </tr>
+  {% endfor %}
+</table>
+
+<a href="{% url "trip_commitment-list" %}">Back to Dashboard</a>
+{% endblock %}
